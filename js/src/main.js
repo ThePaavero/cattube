@@ -15,8 +15,6 @@ CatTube.App = function() {
 	var now_playing = null;
 	var queue;
 
-	var self = this;
-
 	/**
 	 * Initialize
 	 * @param  {object} playlist
@@ -106,7 +104,7 @@ CatTube.App = function() {
 		playlist.init();
 		queue = playlist.getQueue();
 
-		setInterval(self.tick, 1000);
+		setInterval(this.tick, 1000);
 	};
 
 	/**
