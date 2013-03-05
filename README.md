@@ -1,4 +1,4 @@
-cattube
+CatTube™
 =======
 
--_-
+A timed playlist for pets.
