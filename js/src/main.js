@@ -20,7 +20,7 @@ CatTube.App = function() {
 
 	/**
 	 * Initialize
-	 * @param  {object} playlist
+	 * @param  {string} playlist
 	 * @return void
 	 */
 	this.init = function(playlist)
