@@ -15,6 +15,7 @@ CatTube.App = function() {
 	var now_playing = null;
 	var queue;
 	var running;
+
 	var self = this;
 
 	/**
