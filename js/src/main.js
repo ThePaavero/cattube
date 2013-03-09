@@ -14,6 +14,8 @@ CatTube.App = function() {
 	var first_round = true;
 	var now_playing = null;
 	var queue;
+	var running;
+	var self = this;
 
 	/**
 	 * Initialize
@@ -104,7 +106,12 @@ CatTube.App = function() {
 		playlist.init();
 		queue = playlist.getQueue();
 
-		setInterval(this.tick, 1000);
+		if(running)
+		{
+			clearInterval(running);
+		}
+
+		running = setInterval(self.tick, 1000);
 	};
 
 	/**

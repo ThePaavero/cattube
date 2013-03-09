@@ -1,4 +1,9 @@
 /**
+ * Namespace logic
+ * @package CatTube
+ */
+
+/**
  * Global namespace
  * @type {Object}
  */
@@ -14,7 +19,8 @@ CatTube.Playlists = {};
 
 
 /**
- * CatTube
+ * CatTube main JS file
+ * @package CatTube
  */
 
 // requires namespaces
@@ -24,13 +30,18 @@ CatTube.Playlists = {};
  */
 CatTube.App = function() {
 
+	var debug       = false;
 	var first_round = true;
 	var now_playing = null;
 	var queue;
-	var debug = false;
-
+	var running;
 	var self = this;
 
+	/**
+	 * Initialize
+	 * @param  {object} playlist
+	 * @return void
+	 */
 	this.init = function(playlist)
 	{
 		console.log('CatTube initializing with playlist "' + playlist + '"');
@@ -44,6 +55,10 @@ CatTube.App = function() {
 		playPlaylist(new CatTube.Playlists[playlist]());
 	};
 
+	/**
+	 * Do a dycle or "tick" (called upon each second)
+	 * @return void
+	 */
 	this.tick = function()
 	{
 		var video_time;
@@ -62,7 +77,7 @@ CatTube.App = function() {
 
 		if(now_seconds !== 0)
 		{
-			return;
+			return false;
 		}
 
 		var current = {
@@ -101,14 +116,29 @@ CatTube.App = function() {
 		}
 	};
 
+	/**
+	 * Play playlist
+	 * @param  {object} playlist
+	 * @return void
+	 */
 	var playPlaylist = function(playlist)
 	{
 		playlist.init();
 		queue = playlist.getQueue();
 
-		setInterval(self.tick, 1000);
+		if(running)
+		{
+			clearInterval(running);
+		}
+
+		running = setInterval(self.tick, 1000);
 	};
 
+	/**
+	 * Play a video
+	 * @param  {object} video
+	 * @return void
+	 */
 	var playVideo = function(video)
 	{
 		if(now_playing !== null)
@@ -133,6 +163,11 @@ CatTube.App = function() {
 		first_round = false;
 	};
 
+	/**
+	 * Helper function for turning strings to milliseconds
+	 * @param  {string} str e.g. '00:55'
+	 * @return {integer}     Milliseconds
+	 */
 	var convertDuration = function(str)
 	{
 		var bits = str.split(':');
@@ -152,6 +187,10 @@ CatTube.App = function() {
 
 // ---------------------------------------------------------------------------
 
+/**
+ * On document ready, do...
+ * @return void
+ */
 $(function()
 {
 	var app = new CatTube.App();
@@ -161,20 +200,25 @@ $(function()
 // EOF
 
 
+/**
+ * Playlist "Default"
+ * @package CatTube
+ */
+
 // requires namespaces
 
 CatTube.Playlists.Default = function() {
 
 	var videos = {
-		'11:30' : {
+		'17:12' : {
 			id       : 'vORtczn3N7o',
 			duration : '5:16'
 		},
-		'20:41' : {
+		'17:20' : {
 			id       : 'CYbI8kyyyQ4',
 			duration : '1:54'
 		},
-		'20:38' : {
+		'17:23' : {
 			id       : 'vORtczn3N7o',
 			duration : '5:16'
 		}
